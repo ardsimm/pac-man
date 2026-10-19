@@ -1,0 +1,150 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Components" id="pacman-components-normalized">
+    <mxGraphModel dx="1800" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ===== Components ===== -->
+        <mxCell id="c_engine" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;dropTarget=0;" value="&lt;p style=&quot;margin:0;&quot;&gt;«component»&lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;b&gt;Engine&lt;/b&gt;&lt;/p&gt;">
+          <mxGeometry x="40" y="240" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="c_engine_i" parent="c_engine" vertex="1" style="shape=component;jettyWidth=8;jettyHeight=4;" value="">
+          <mxGeometry x="1" width="20" height="20" relative="1" as="geometry"><mxPoint x="-24" y="4" as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="c_sm" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;dropTarget=0;" value="&lt;p style=&quot;margin:0;&quot;&gt;«component»&lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;b&gt;SceneManager&lt;/b&gt;&lt;/p&gt;">
+          <mxGeometry x="400" y="240" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="c_sm_i" parent="c_sm" vertex="1" style="shape=component;jettyWidth=8;jettyHeight=4;" value="">
+          <mxGeometry x="1" width="20" height="20" relative="1" as="geometry"><mxPoint x="-24" y="4" as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="c_scene" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;dropTarget=0;" value="&lt;p style=&quot;margin:0;&quot;&gt;«component»&lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;b&gt;Scene&lt;/b&gt;&lt;/p&gt;">
+          <mxGeometry x="800" y="240" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="c_scene_i" parent="c_scene" vertex="1" style="shape=component;jettyWidth=8;jettyHeight=4;" value="">
+          <mxGeometry x="1" width="20" height="20" relative="1" as="geometry"><mxPoint x="-24" y="4" as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="c_adapter" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;dropTarget=0;" value="&lt;p style=&quot;margin:0;&quot;&gt;«component»&lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;b&gt;SceneAdapter&lt;/b&gt;&lt;/p&gt;">
+          <mxGeometry x="1200" y="240" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="c_adapter_i" parent="c_adapter" vertex="1" style="shape=component;jettyWidth=8;jettyHeight=4;" value="">
+          <mxGeometry x="1" width="20" height="20" relative="1" as="geometry"><mxPoint x="-24" y="4" as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="c_render" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;dropTarget=0;" value="&lt;p style=&quot;margin:0;&quot;&gt;«component»&lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;b&gt;Render&lt;/b&gt;&lt;/p&gt;">
+          <mxGeometry x="1600" y="240" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="c_render_i" parent="c_render" vertex="1" style="shape=component;jettyWidth=8;jettyHeight=4;" value="">
+          <mxGeometry x="1" width="20" height="20" relative="1" as="geometry"><mxPoint x="-24" y="4" as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="c_scores" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;dropTarget=0;" value="&lt;p style=&quot;margin:0;&quot;&gt;«component»&lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;b&gt;Scores&lt;/b&gt;&lt;/p&gt;">
+          <mxGeometry x="650" y="0" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="c_scores_i" parent="c_scores" vertex="1" style="shape=component;jettyWidth=8;jettyHeight=4;" value="">
+          <mxGeometry x="1" width="20" height="20" relative="1" as="geometry"><mxPoint x="-24" y="4" as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="c_config" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;dropTarget=0;" value="&lt;p style=&quot;margin:0;&quot;&gt;«component»&lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;b&gt;Config&lt;/b&gt;&lt;/p&gt;">
+          <mxGeometry x="950" y="0" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="c_config_i" parent="c_config" vertex="1" style="shape=component;jettyWidth=8;jettyHeight=4;" value="">
+          <mxGeometry x="1" width="20" height="20" relative="1" as="geometry"><mxPoint x="-24" y="4" as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="c_maze" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;dropTarget=0;" value="&lt;p style=&quot;margin:0;&quot;&gt;«component»&lt;/p&gt;&lt;p style=&quot;margin:0;&quot;&gt;&lt;b&gt;Maze&lt;/b&gt;&lt;/p&gt;">
+          <mxGeometry x="800" y="480" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="c_maze_i" parent="c_maze" vertex="1" style="shape=component;jettyWidth=8;jettyHeight=4;" value="">
+          <mxGeometry x="1" width="20" height="20" relative="1" as="geometry"><mxPoint x="-24" y="4" as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- ===== Provided interfaces (lollipops) ===== -->
+        <mxCell id="i_eventsink" parent="1" vertex="1" value="EventSink" style="ellipse;html=1;aspect=fixed;fillColor=#ffffff;verticalLabelPosition=top;verticalAlign=bottom;labelPosition=center;align=center;">
+          <mxGeometry x="290" y="270" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="i_scene" parent="1" vertex="1" value="SceneProtocol" style="ellipse;html=1;aspect=fixed;fillColor=#ffffff;verticalLabelPosition=top;verticalAlign=bottom;labelPosition=center;align=center;">
+          <mxGeometry x="690" y="250" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="i_nav" parent="1" vertex="1" value="SceneNavigator" style="ellipse;html=1;aspect=fixed;fillColor=#ffffff;verticalLabelPosition=bottom;verticalAlign=top;labelPosition=center;align=center;">
+          <mxGeometry x="590" y="290" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="i_presenter" parent="1" vertex="1" value="ScenePresenter" style="ellipse;html=1;aspect=fixed;fillColor=#ffffff;verticalLabelPosition=top;verticalAlign=bottom;labelPosition=center;align=center;">
+          <mxGeometry x="1080" y="270" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="i_renderer" parent="1" vertex="1" value="Renderer" style="ellipse;html=1;aspect=fixed;fillColor=#ffffff;verticalLabelPosition=top;verticalAlign=bottom;labelPosition=center;align=center;">
+          <mxGeometry x="1480" y="270" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="i_scores" parent="1" vertex="1" value="HighscoreStore" style="ellipse;html=1;aspect=fixed;fillColor=#ffffff;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;">
+          <mxGeometry x="730" y="150" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="i_config" parent="1" vertex="1" value="GameConfig" style="ellipse;html=1;aspect=fixed;fillColor=#ffffff;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;">
+          <mxGeometry x="1030" y="150" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="i_maze" parent="1" vertex="1" value="MazeProvider" style="ellipse;html=1;aspect=fixed;fillColor=#ffffff;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;">
+          <mxGeometry x="880" y="380" width="20" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Realization: provider —○ (solid, no arrow) ===== -->
+        <mxCell id="p_eventsink" parent="1" edge="1" source="c_sm" target="i_eventsink" style="endArrow=none;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p_scene" parent="1" edge="1" source="c_scene" target="i_scene" style="endArrow=none;html=1;rounded=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p_nav" parent="1" edge="1" source="c_sm" target="i_nav" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p_presenter" parent="1" edge="1" source="c_adapter" target="i_presenter" style="endArrow=none;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p_renderer" parent="1" edge="1" source="c_render" target="i_renderer" style="endArrow=none;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p_scores" parent="1" edge="1" source="c_scores" target="i_scores" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p_config" parent="1" edge="1" source="c_config" target="i_config" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p_maze" parent="1" edge="1" source="c_maze" target="i_maze" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Usage dependencies: consumer - - -> interface ===== -->
+        <mxCell id="u_eventsink" parent="1" edge="1" source="c_engine" target="i_eventsink" style="endArrow=open;endFill=0;dashed=1;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="u_scene" parent="1" edge="1" source="c_sm" target="i_scene" style="endArrow=open;endFill=0;dashed=1;html=1;rounded=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="u_nav" parent="1" edge="1" source="c_scene" target="i_nav" style="endArrow=open;endFill=0;dashed=1;html=1;rounded=0;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="u_presenter" parent="1" edge="1" source="c_scene" target="i_presenter" style="endArrow=open;endFill=0;dashed=1;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="u_renderer" parent="1" edge="1" source="c_adapter" target="i_renderer" style="endArrow=open;endFill=0;dashed=1;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="u_scores" parent="1" edge="1" source="c_scene" target="i_scores" style="endArrow=open;endFill=0;dashed=1;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="u_config" parent="1" edge="1" source="c_scene" target="i_config" style="endArrow=open;endFill=0;dashed=1;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="u_maze" parent="1" edge="1" source="c_scene" target="i_maze" style="endArrow=open;endFill=0;dashed=1;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Legend ===== -->
+        <mxCell id="legend" parent="1" vertex="1" style="shape=note;whiteSpace=wrap;html=1;size=14;align=left;verticalAlign=top;spacingLeft=10;spacingTop=4;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;b&gt;Legend&lt;/b&gt;&lt;br&gt;&lt;br&gt;Component —○ Interface : the component provides (implements) the interface&lt;br&gt;&lt;br&gt;Component - - -&amp;gt; ○ : the component uses (requires) the interface&lt;br&gt;&lt;br&gt;Arrows show dependencies (who calls whom), not data flow.">
+          <mxGeometry x="40" y="440" width="420" height="140" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
