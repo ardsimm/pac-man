@@ -9,3 +9,10 @@ dependencies = [
     "pillow>=12.3.0",
     "pygame-ce>=2.5.8",
 ]
+
+[dependency-groups]
+dev = [
+    "black>=26.10.1",
+    "flake8>=7.4.1",
+    "mypy>=2.4.0",
+]
