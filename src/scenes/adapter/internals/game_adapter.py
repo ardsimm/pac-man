@@ -6,5 +6,5 @@ from src.scenes.view import View
 
 class GameAdapter(Adapter):
 
-    def adapt_view(self, view: View) -> np.ndarray:
+    def adapt_view(self, frame: np.ndarray, view: View) -> None:
         raise NotImplementedError("Method not implemented")

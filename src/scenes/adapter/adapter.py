@@ -30,5 +30,5 @@ class Adapter(ABC):
         return cls.__instances[type]
 
     @abstractmethod
-    def adapt_view(self, view: View) -> np.ndarray:
+    def adapt_view(self, frame: np.ndarray, view: View) -> None:
         pass
