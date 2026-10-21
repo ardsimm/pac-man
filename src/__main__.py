@@ -1,11 +1,12 @@
 import sys
 from typing import List
+from src.render.garbage import test
 
 
 class Main:
     @staticmethod
     def main(ac: int, av: List[str]) -> None:
-        print("Hi mom!")
+        test()
 
 
 if __name__ == "__main__":
