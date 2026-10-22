@@ -4,7 +4,8 @@ import numpy.typing as npt
 
 from itertools import chain
 
-from .texture.texture_manager import TextureManager, Color
+from .texture.texture_manager import TextureManager
+from .models import Color
 
 
 def create_rectangle(h: int, w: int, color: Color) -> np.ndarray:
@@ -19,6 +20,8 @@ def draw(buff: np.ndarray, x: int, y: int, sprite: np.ndarray) -> None:
     fx0, fy0 = max(x, 0), max(y, 0)
     fx1, fy1 = min(x + w, buff.shape[1]), min(y + h, buff.shape[0])
 
+    if fx0 > fx1 or fy0 > fy1:
+        return
     part = sprite[fy0 - y : fy1 - y, fx0 - x : fx1 - x]
     np.copyto(buff[fy0:fy1, fx0:fx1], part, where=part[..., 3:] > 0)
 
@@ -27,7 +30,7 @@ def test():
     pygame.init()
     W, H = 1000, 1000
 
-    tex_manager = TextureManager(96)
+    tex_manager = TextureManager(128)
     frame = np.zeros((H, W, 4), np.uint8)
     surf = pygame.image.frombuffer(frame, (W, H), "RGBA")
     screen = pygame.display.set_mode((W, H))
