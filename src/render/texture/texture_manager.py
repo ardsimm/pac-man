@@ -16,39 +16,39 @@ class TextureManager:
         self._default_tile = np.full(
             (tile, tile, 4), (255, 0, 255, 255), dtype=np.uint8
         )
-        self._classic_theme = self._load_assets(DEFAULT)
-        self.theme, self.theme_assets = DEFAULT, self._classic_theme
+        self._classic_assets = self._load_assets(DEFAULT)
+        self.theme, self.theme_assets = DEFAULT, self._classic_assets
         if theme != DEFAULT:
             self.set_theme(theme)
 
     def set_theme(self, name: str) -> None:
         if name == DEFAULT:
-            self.theme, self.theme_assets = DEFAULT, self._classic_theme
+            self.theme, self.theme_assets = DEFAULT, self._classic_assets
             return
         try:
-            textures = self._load_assets(name)
+            assets = self._load_assets(name)
         except ThemeNotFound as e:
             print(f"Error: {e}")
             return
-        self.theme, self.theme_assets = name, textures
+        self.theme, self.theme_assets = name, self._classic_assets | assets
 
-    def _load_png(self, path: Path, size: tuple[int, int]) -> npt.NDArray:
+    def _load_png(self, path: Path) -> npt.NDArray:
         try:
             with Image.open(path) as img:
                 resized_img = img.convert("RGBA").resize(
-                    size, Image.Resampling.NEAREST
+                    (self.tile, self.tile), Image.Resampling.NEAREST
                 )
-                rgba = np.asarray(resized_img)
+                rgba = np.array(resized_img)
         except IOError:
             print(f"Failed to load asset: {path.name}")
             return self._default_tile
         return rgba
 
     def _load_assets(self, name: str) -> dict[str, dict[int, Frame]]:
-        theme = THEMES / name
+        theme = self._root / name
 
-        if not theme.exists() and not theme.is_dir():
-            raise ThemeNotFound(f"Theme {name} is not found: {theme}")
+        if not name.isidentifier() or not theme.is_dir():
+            raise ThemeNotFound(f"thème introuvable : {name}")
 
         textures: dict[str, dict[int, Frame]] = {}
         for f in theme.rglob("*.png"):
@@ -57,7 +57,5 @@ class TextureManager:
                 key, index = rel.rsplit("/", 1)[0], int(f.stem)
             else:
                 key, index = rel, 0
-            textures.setdefault(key, {})[index] = self._load_png(
-                f.absolute(), (self.tile, self.tile)
-            )
+            textures.setdefault(key, {})[index] = self._load_png(f)
         return textures
