@@ -1,10 +1,11 @@
 VENV ?= .venv
+CONFIG_FILE ?= data/config/config.json
 
 $(VENV): pyproject.toml
 	uv sync
 
 run: install
-	uv run python -m src
+	uv run python -m src $(CONFIG_FILE)
 
 install: $(VENV)
 

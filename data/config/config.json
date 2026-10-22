@@ -1,0 +1,21 @@
+{
+	"levels": [
+		{
+			"name:": "Level 1",
+			"seed": "only_in_ft_ong",
+			"width": 42,
+			"height": 42,
+			"is_perfect": false
+		},
+		{
+			"name:": "Level 2",
+			"seed": "sisi bondy on est laa",
+			"width": 67,
+			"height": 67,
+			"is_perfect": true
+		}
+	],
+	"lives": 4,
+	"pacgum": 67,
+	"pacman_speed": 42
+}
