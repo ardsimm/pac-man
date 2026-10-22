@@ -1,6 +1,7 @@
 import sys
 from traceback import print_exception
 from typing import List
+from src.render.garbage import test
 
 from src.parser.parser import Parser
 from src.parser.parser_exceptions import ParsingError
