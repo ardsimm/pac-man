@@ -36,7 +36,7 @@ class TextureManager:
         try:
             with Image.open(path) as img:
                 resized_img = img.convert("RGBA").resize(
-                    self.tile, Image.Resampling.NEAREST
+                    (self.tile, self.tile), Image.Resampling.NEAREST
                 )
                 rgba = np.array(resized_img)
         except IOError:
