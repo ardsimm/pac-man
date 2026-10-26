@@ -1,6 +1,5 @@
 import pygame
 import numpy as np
-import numpy.typing as npt
 
 from itertools import chain
 
@@ -22,11 +21,11 @@ def draw(buff: np.ndarray, x: int, y: int, sprite: np.ndarray) -> None:
 
     if fx0 > fx1 or fy0 > fy1:
         return
-    part = sprite[fy0 - y : fy1 - y, fx0 - x : fx1 - x]
+    part = sprite[fy0 - y: fy1 - y, fx0 - x: fx1 - x]
     np.copyto(buff[fy0:fy1, fx0:fx1], part, where=part[..., 3:] > 0)
 
 
-def test():
+def test() -> None:
     pygame.init()
     W, H = 1000, 1000
 
