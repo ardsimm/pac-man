@@ -1,3 +1,5 @@
+from typing import Any
+
 import numpy as np
 import numpy.typing as npt
 
@@ -32,7 +34,7 @@ class TextureManager:
             return
         self.theme, self.theme_assets = name, self._classic_assets | assets
 
-    def _load_png(self, path: Path) -> npt.NDArray:
+    def _load_png(self, path: Path) -> npt.NDArray[Any]:
         try:
             with Image.open(path) as img:
                 resized_img = img.convert("RGBA").resize(
