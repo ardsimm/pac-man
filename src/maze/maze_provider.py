@@ -1,22 +1,13 @@
-from enum import IntEnum
-
 from mazegenerator import MazeGenerator
+from src.enums import Direction as Dir
 
-CORRIDOR = 16
+_CORRIDOR = 16
 
-
-class Dir(IntEnum):
-    N = 1
-    E = 2
-    S = 4
-    W = 8
-
-
-DELTA: dict[Dir, tuple[int, int]] = {
-    Dir.N: (-1, 0),
-    Dir.E: (0, 1),
-    Dir.S: (1, 0),
-    Dir.W: (0, -1),
+_DELTA: dict[Dir, tuple[int, int]] = {
+    Dir.UP: (-1, 0),
+    Dir.RIGHT: (0, 1),
+    Dir.DOWN: (1, 0),
+    Dir.LEFT: (0, -1),
 }
 
 
@@ -34,9 +25,9 @@ class MazeProvider:
                 if cell == 15:
                     continue
                 tiles[2 * y + 1][2 * x + 1] = False
-                if not cell & Dir.E:
+                if not cell & Dir.RIGHT:
                     tiles[2 * y + 1][2 * x + 2] = False
-                if not cell & Dir.S:
+                if not cell & Dir.DOWN:
                     tiles[2 * y + 2][2 * x + 1] = False
         return tiles
 
@@ -48,13 +39,13 @@ class MazeProvider:
 
         def get_value(r: int, c: int) -> int:
             value = 0
-            for d, (dy, dx) in DELTA.items():
+            for d, (dy, dx) in _DELTA.items():
                 if is_wall(r + dy, c + dx):
                     value |= d
             return value
 
         return [
-            [get_value(r, c) if tiles[r][c] else CORRIDOR for c in range(W)]
+            [get_value(r, c) if tiles[r][c] else _CORRIDOR for c in range(W)]
             for r in range(H)
         ]
 
