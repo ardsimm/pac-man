@@ -1,8 +1,7 @@
 from abc import ABC, abstractmethod
-from typing import Dict
+from typing import Dict, List
 
 from src.event.event import Event
-from src.scenes.adapter import Adapter
 from src.scenes.internals.game_scene import GameScene
 from src.scenes.internals.ui_scene import UIScene
 from src.scenes.scene_type import SceneType
@@ -12,7 +11,6 @@ from src.scenes.view import View
 class Scene(ABC):
 
     __instances: Dict[SceneType, "Scene"] = {}
-    adapter: Adapter
 
     @classmethod
     def get_instance(cls, type: SceneType) -> "Scene":
@@ -27,5 +25,12 @@ class Scene(ABC):
         return cls.__instances[type]
 
     @abstractmethod
-    def update(self, events: list[Event]) -> View:
+    def _tick(self, events: List[Event]) -> View:
+        pass
+
+    def _draw(self, view: View) -> None:
+        pass
+
+    @abstractmethod
+    def update(self, events: list[Event]) -> List[Event]:
         pass

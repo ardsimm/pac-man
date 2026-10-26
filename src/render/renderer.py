@@ -1,9 +1,11 @@
-import pygame
 import numpy as np
+import pygame
+
+from src.scenes.view import View
 
 from .models import Frame
 from .texture.texture_manager import TextureManager
-from src.scenes.view import View, GameView, UIView
+
 
 class Renderer:
     def __init__(self, width: int, height: int, tile: int = 32) -> None:
@@ -16,5 +18,4 @@ class Renderer:
         pygame.init()
 
     def render(self, view: View) -> None:
-
-
+        pass
