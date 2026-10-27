@@ -2,6 +2,7 @@ import sys
 from traceback import print_exception
 from typing import List
 
+from src.engine.engine import Engine
 from src.parser.parser import Parser
 from src.parser.parser_exceptions import ParsingError
 
@@ -14,10 +15,11 @@ class Main:
             return 1
         try:
             config = Parser().parse_config(av[1])
+            print(config)
         except ParsingError as err:
             print(sys.stdout, f"Parsing error:\n{err}")
             return 1
-        print(config)
+        Engine().run()
         return 0
 
 

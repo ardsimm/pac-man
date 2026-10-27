@@ -16,7 +16,7 @@ class Parser:
             if line.strip().startswith("#"):
                 continue
             if "#" in line:
-                stripped_lines.append(line[:line.index("#")])
+                stripped_lines.append(line[: line.index("#")])
             else:
                 stripped_lines.append(line)
         return stripped_lines
