@@ -1,3 +1,3 @@
-from direction import Direction
+from .direction import Direction
 
 __all__ = ["Direction"]
