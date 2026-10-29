@@ -14,7 +14,3 @@ class GameScene(Scene):
     @override
     def _draw(self, view: View) -> None:
         raise NotImplementedError("Method not implemented")
-
-    @override
-    def update(self, events: list[Event]) -> List[Event]:
-        raise NotImplementedError("Method not implemented")
