@@ -1,9 +1,10 @@
 from dataclasses import dataclass
 from typing import TypeAlias
 from enum import StrEnum
+import numpy as np
+import numpy.typing as npt
 
 from .box import Box
-
 
 Color: TypeAlias = tuple[int, int, int, int]
 
@@ -34,6 +35,14 @@ class Sprite:
     x: float
     y: float
     state: int = 0
+
+
+@dataclass
+class TileMap:
+    key: str
+    x: int
+    y: int
+    tile_map: npt.NDArray[np.uint8]
 
 
 Item = Text | Sprite
