@@ -1,3 +1,6 @@
+import numpy as np
+import numpy.typing as npt
+
 from mazegenerator import MazeGenerator
 from src.enums import Direction as Dir
 
@@ -31,7 +34,7 @@ class MazeProvider:
                     tiles[2 * y + 2][2 * x + 1] = False
         return tiles
 
-    def _tiles_walls(self, tiles: list[list[bool]]) -> list[list[int]]:
+    def _tiles_walls(self, tiles: list[list[bool]]) -> npt.NDArray[np.uint8]:
         H, W = len(tiles), len(tiles[0])
 
         def is_wall(r: int, c: int) -> bool:
@@ -44,17 +47,18 @@ class MazeProvider:
                     value |= d
             return value
 
-        return [
+        tiles_values = [
             [get_value(r, c) if tiles[r][c] else _CORRIDOR for c in range(W)]
             for r in range(H)
         ]
+        return np.array(tiles_values, dtype=np.uint8)
 
     def generate(self, seed: int = 42) -> None:
         self._maze_gen.generate(seed)
         self._tile_maze = self._tiles_walls(self._maze_to_tiles())
 
     @property
-    def tile_maze(self) -> list[list[int]]:
+    def tile_maze(self) -> npt.NDArray[np.uint8]:
         return self._tile_maze
 
     @property
