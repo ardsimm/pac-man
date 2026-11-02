@@ -45,4 +45,4 @@ class TileMap:
     tile_map: npt.NDArray[np.uint8]
 
 
-Item = Text | Sprite
+Item = Text | Sprite | TileMap
