@@ -1,12 +1,13 @@
-import pygame
-import numpy as np
-import numpy.typing as npt
-
 from itertools import chain
 
-from .texture.texture_manager import TextureManager
-from .models import Color
+import numpy as np
+import numpy.typing as npt
+import pygame
+
 from src.maze.maze_provider import MazeProvider
+
+from .models import Color
+from .texture.texture_manager import TextureManager
 
 
 def create_rectangle(h: int, w: int, color: Color) -> npt.NDArray[np.uint8]:
@@ -29,7 +30,7 @@ def draw(
     np.copyto(buff[fy0:fy1, fx0:fx1], part, where=part[..., 3:] > 0)
 
 
-def test_maze():
+def test_maze() -> None:
     ASSET_SIZE = 32
 
     tex_manager = TextureManager(ASSET_SIZE)
@@ -49,7 +50,8 @@ def test_maze():
     T = walls.shape[1]
 
     h, w = tiles.shape
-    # Reshape multiplie 2 a 2 on change l ordre de la shape pour que les valeurs se suivent h * ASSET_SIZE et w * ASSET_SIZE
+    # Reshape multiplie 2 a 2 on change l ordre de la shape pour que les
+    #  valeurs se suivent h * ASSET_SIZE et w * ASSET_SIZE
     # de base : (h, w, T, T, 4) -> (h, T, w, T, 4)
     maze_img = walls[tiles].transpose(0, 2, 1, 3, 4).reshape(h * T, w * T, 4)
     maze_surf = pygame.image.frombuffer(
@@ -74,7 +76,7 @@ def test_maze():
     pygame.quit()
 
 
-def test_texture():
+def test_texture() -> None:
     pygame.init()
     W, H = 1000, 1000
 

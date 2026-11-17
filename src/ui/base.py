@@ -4,7 +4,6 @@ from enum import Enum
 import numpy as np
 import numpy.typing as npt
 
-from .states import ComponentState
 from .box import Box
 
 Color: TypeAlias = tuple[int, int, int, int]

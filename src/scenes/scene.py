@@ -1,28 +1,27 @@
 from abc import ABC, abstractmethod
 from typing import List
 
+from src.config.config import Config
 from src.event.event import Event
-from src.scenes.view import View
+from src.ui.base import Item
 
 
 class Scene(ABC):
 
     z_index: int
     is_fullscreen: bool
+    config: Config
 
-    def __init__(self) -> None:
+    def __init__(self, config: Config) -> None:
         super().__init__()
         self.z_index = 0
         self.is_fullscreen = True
+        self.config = config
 
     @abstractmethod
-    def _tick(self, events: List[Event]) -> View:
+    def draw(self) -> List[Item]:
         pass
 
     @abstractmethod
-    def _draw(self, view: View) -> None:
-        pass
-
-    @abstractmethod
-    def update(self, events: list[Event]) -> List[Event]:
+    def update(self, events: List[Event]) -> None:
         pass

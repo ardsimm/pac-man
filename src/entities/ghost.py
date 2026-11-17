@@ -5,7 +5,6 @@ from src.enums.ghost_mode import GhostMode
 
 
 class Ghost(Entity):
-
     mode: GhostMode
 
     @override

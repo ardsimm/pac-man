@@ -10,6 +10,7 @@ class Level(BaseModel):
     width: int = Field(gt=5, default=50)
     height: int = Field(gt=5, default=50)
     is_perfect: bool = Field(default=False)
+    super_pacgums: int = Field(default=16)
 
 
 class Config(BaseModel):
