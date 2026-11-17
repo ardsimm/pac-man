@@ -1,7 +1,9 @@
+from typing import List
+
 import numpy as np
 import pygame
 
-from src.scenes.view import View
+from src.ui.base import Item
 
 from .models import Frame
 from .texture.texture_manager import TextureManager
@@ -17,5 +19,5 @@ class Renderer:
         self._texture_manager: TextureManager = TextureManager(tile)
         pygame.init()
 
-    def render(self, view: View) -> None:
+    def render(self, items: List[Item]) -> None:
         pass

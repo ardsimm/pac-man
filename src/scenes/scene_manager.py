@@ -17,10 +17,8 @@ class SceneManager:
     frame: np.ndarray
     __scene_stack: List[Scene]
     __scenes: Dict[SceneType, Scene]
-    game_scene: Scene
 
     def __init__(self, config: Config) -> None:
-        self.game_scene = GameScene(config)
         self.__scenes = {
             SceneType.GAME_SCENE: GameScene(config),
             SceneType.MAIN_MENU_SCENE: UIScene(config),
@@ -28,8 +26,8 @@ class SceneManager:
             SceneType.GAME_OVER_SCENE: UIScene(config),
             SceneType.GAME_WON_SCENE: UIScene(config),
         }
-        self.__scenes[SceneType.MAIN_MENU_SCENE].z_index = 0
-        self.__scene_stack = [self.__scenes[SceneType.MAIN_MENU_SCENE]]
+        self.__scenes[SceneType.GAME_SCENE].z_index = 0
+        self.__scene_stack = [self.__scenes[SceneType.GAME_SCENE]]
 
     def __pop_scene_stack(self) -> Scene:
         poped = self.__scene_stack[0]

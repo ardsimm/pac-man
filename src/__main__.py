@@ -19,7 +19,7 @@ class Main:
         except ParsingError as err:
             print(sys.stdout, f"Parsing error:\n{err}")
             return 1
-        Engine().run()
+        Engine(config).run()
         return 0
 
 

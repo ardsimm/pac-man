@@ -191,7 +191,7 @@ TODO
 ## Project Management
 
 <!--
-- Method used (Scrum/Kanban, sprint length, rituals)
+- Method used (Scrum/Kanban, sprintd length, rituals)
 - Tools (GitHub Projects + link)
 - Team organization: who did what, how decisions were made
 - Short summary of planned vs actual, main risks, blocking points
