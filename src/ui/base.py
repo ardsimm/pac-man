@@ -4,6 +4,7 @@ from enum import Enum
 import numpy as np
 import numpy.typing as npt
 
+from .states import ComponentState
 from .box import Box
 
 Color: TypeAlias = tuple[int, int, int, int]
@@ -35,7 +36,7 @@ class Sprite:
     texture: str
     x: float
     y: float
-    state: int = 0
+    state: ComponentState = ComponentState.NORMAL
 
 
 @dataclass
