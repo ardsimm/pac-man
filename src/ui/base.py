@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import TypeAlias
-from enum import StrEnum
+from enum import Enum
 import numpy as np
 import numpy.typing as npt
 
@@ -9,7 +9,7 @@ from .box import Box
 Color: TypeAlias = tuple[int, int, int, int]
 
 
-class Anchor(StrEnum):
+class Anchor(Enum):
     CENTER = "center"
     LEFT = "left"
     RIGHT = "right"
@@ -18,6 +18,7 @@ class Anchor(StrEnum):
 @dataclass
 class Rect:
     Box: Box
+    color: Color
 
 
 @dataclass
@@ -45,4 +46,4 @@ class TileMap:
     tile_map: npt.NDArray[np.uint8]
 
 
-Item = Text | Sprite | TileMap
+Item = Text | Sprite | TileMap | Rect

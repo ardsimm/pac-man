@@ -11,7 +11,7 @@ class Box:
     def contain(self, pos: tuple[float, float]) -> bool:
         return (
             self.x <= pos[0] <= self.x + self.width
-            and self.y <= pos[0] <= self.y + self.height
+            and self.y <= pos[1] <= self.y + self.height
         )
 
     @property
