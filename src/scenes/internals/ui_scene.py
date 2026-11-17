@@ -1,16 +1,17 @@
-from typing import List, override
+from typing import List
 
 from src.event.event import Event
 from src.scenes.scene import Scene
-from src.scenes.view import View
+from src.scenes.view.ui_view import UIView
+from src.ui.base import Item
 
 
 class UIScene(Scene):
 
-    @override
-    def _tick(self, events: List[Event]) -> View:
+    view: UIView
+
+    def draw(self) -> List[Item]:
         raise NotImplementedError("Method not implemented")
 
-    @override
-    def _draw(self, view: View) -> None:
+    def update(self, events: List[Event]) -> None:
         raise NotImplementedError("Method not implemented")

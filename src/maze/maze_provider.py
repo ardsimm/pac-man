@@ -2,9 +2,10 @@ import numpy as np
 import numpy.typing as npt
 
 from mazegenerator import MazeGenerator
+from typing_extensions import Optional
 from src.enums import Direction as Dir
 
-_CORRIDOR = 16
+CORRIDOR = 16
 
 _DELTA: dict[Dir, tuple[int, int]] = {
     Dir.UP: (-1, 0),
@@ -15,6 +16,15 @@ _DELTA: dict[Dir, tuple[int, int]] = {
 
 
 class MazeProvider:
+
+    instance: Optional["MazeProvider"] = None
+
+    @classmethod
+    def get_instance(cls, size: tuple[int, int]) -> "MazeProvider":
+        if cls.instance is None:
+            cls.instance = MazeProvider(size)
+        return cls.instance
+
     def __init__(self, size: tuple[int, int]) -> None:
         self._maze_gen: MazeGenerator = MazeGenerator(size, perfect=False)
 
@@ -48,7 +58,7 @@ class MazeProvider:
             return value
 
         tiles_values = [
-            [get_value(r, c) if tiles[r][c] else _CORRIDOR for c in range(W)]
+            [get_value(r, c) if tiles[r][c] else CORRIDOR for c in range(W)]
             for r in range(H)
         ]
         return np.array(tiles_values, dtype=np.uint8)
