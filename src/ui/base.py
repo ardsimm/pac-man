@@ -16,13 +16,13 @@ class Anchor(Enum):
     RIGHT = "right"
 
 
-@dataclass
+@dataclass(frozen=True)
 class Rect:
-    Box: Box
+    box: Box
     color: Color
 
 
-@dataclass
+@dataclass(frozen=True)
 class Text:
     label: str
     font_size: int
@@ -31,15 +31,15 @@ class Text:
     anchor: Anchor = Anchor.CENTER
 
 
-@dataclass
+@dataclass(frozen=True)
 class Sprite:
     texture: str
     x: float
     y: float
-    state: ComponentState = ComponentState.NORMAL
+    state: int = 0
 
 
-@dataclass
+@dataclass(frozen=True)
 class TileMap:
     key: str
     x: int
