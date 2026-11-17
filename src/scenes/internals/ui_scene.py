@@ -11,7 +11,7 @@ class UIScene(Scene):
     view: UIView
 
     def draw(self) -> List[Item]:
-        raise NotImplementedError("Method not implemented")
+        return []
 
     def update(self, events: List[Event]) -> None:
-        raise NotImplementedError("Method not implemented")
+        pass
