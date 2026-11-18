@@ -45,6 +45,7 @@ class TileMap:
     key: str
     x: int
     y: int
+    tile_size: int
     tile_map: npt.NDArray[np.uint8]
 
 

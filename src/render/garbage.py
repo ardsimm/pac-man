@@ -1,5 +1,3 @@
-from itertools import chain
-
 import numpy as np
 import numpy.typing as npt
 import pygame
@@ -33,9 +31,8 @@ def draw(
 def test_maze() -> None:
     ASSET_SIZE = 32
 
-    tex_manager = TextureManager(ASSET_SIZE)
+    tex_manager = TextureManager()
     tex_manager.set_theme("classic")
-    assets = tex_manager.theme_assets
     pygame.init()
     pygame.display.set_mode()
     maze = MazeProvider((20, 20))
@@ -45,7 +42,11 @@ def test_maze() -> None:
     tiles = np.array(maze.tile_maze, dtype=np.uint8)
     EMPTY = np.zeros((ASSET_SIZE, ASSET_SIZE, 4), np.uint8)
     walls = np.stack(
-        [assets["walls"][v] for v in range(16)] + [EMPTY]
+        [
+            tex_manager.get_asset("walls", ASSET_SIZE, ASSET_SIZE, v)
+            for v in range(16)
+        ]
+        + [EMPTY]
     )  # (17, ASSET_SIZE, ASSET_SIZE, 4)
     T = walls.shape[1]
 
@@ -80,7 +81,7 @@ def test_texture() -> None:
     pygame.init()
     W, H = 1000, 1000
 
-    tex_manager = TextureManager(128)
+    tex_manager = TextureManager()
     frame = np.zeros((H, W, 4), np.uint8)
     surf = pygame.image.frombuffer(frame, (W, H), "RGBA")
     screen = pygame.display.set_mode((W, H))
@@ -90,10 +91,10 @@ def test_texture() -> None:
     assets = tex_manager.theme_assets
 
     GAP = 20
-    step = tex_manager.tile + GAP
+    step = 16 + GAP
     cols = (W - GAP) // step
 
-    images = chain.from_iterable([asset.values() for asset in assets.values()])
+    images = [tex_manager.get_asset(asset, 16, 16) for asset in assets.keys()]
     for n, v in enumerate(images):
         x = GAP + (n % cols) * step
         y = GAP + (n // cols) * step
