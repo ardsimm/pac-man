@@ -10,7 +10,7 @@ from src.event.event import Event
 from src.maze.maze_provider import CORRIDOR, MazeProvider
 from src.scenes.scene import Scene
 from src.scenes.view.game_view import GameView
-from src.ui.base import Item
+from src.ui import Box, Drawable, Label
 
 
 class GameScene(Scene):
@@ -69,8 +69,15 @@ class GameScene(Scene):
             super_pac_gums=super_pac_gums,
         )
 
-    def draw(self) -> List[Item]:
-        raise NotImplementedError("Method not implemented")
+    def draw(self) -> List[Drawable]:
+        return [
+            Label(
+                "ntm",
+                Box(x=150, y=150, width=200, height=200),
+                64,
+                (255, 255, 255, 255),
+            ),
+        ]
 
     def update(self, events: List[Event]) -> None:
-        raise NotImplementedError("Method not implemented")
+        pass

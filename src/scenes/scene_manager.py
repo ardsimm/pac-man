@@ -52,7 +52,8 @@ class SceneManager:
     def draw(self) -> List[Item]:
         items: List[Item] = []
         for scene in self.__scene_stack:
-            items.extend(scene.draw())
+            for drawable in scene.draw():
+                items.extend(drawable.items())
             # TODO: append occlusion plane
         items.reverse()
         return items

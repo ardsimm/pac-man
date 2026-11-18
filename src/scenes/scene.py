@@ -3,7 +3,7 @@ from typing import List
 
 from src.config.config import Config
 from src.event.event import Event
-from src.ui.base import Item
+from src.ui import Drawable
 
 
 class Scene(ABC):
@@ -19,7 +19,7 @@ class Scene(ABC):
         self.config = config
 
     @abstractmethod
-    def draw(self) -> List[Item]:
+    def draw(self) -> List[Drawable]:
         pass
 
     @abstractmethod
