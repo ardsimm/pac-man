@@ -16,7 +16,14 @@ class Button:
 
     def items(self) -> list[Item]:
         return [
-            Sprite(self.texture, self.box.x, self.box.y, self.state),
+            Sprite(
+                self.texture,
+                self.box.x,
+                self.box.y,
+                self.box.height,
+                self.box.width,
+                self.state,
+            ),
             Text(self.label, self.text_size, self.text_color, self.box),
         ]
 
