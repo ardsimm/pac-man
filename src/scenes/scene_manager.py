@@ -55,7 +55,6 @@ class SceneManager:
             for drawable in scene.draw():
                 items.extend(drawable.items())
             # TODO: append occlusion plane
-        items.reverse()
         return items
 
     @classmethod
