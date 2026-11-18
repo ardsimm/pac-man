@@ -35,6 +35,8 @@ class Sprite:
     texture: str
     x: float
     y: float
+    h: int
+    w: int
     state: int = 0
 
 
