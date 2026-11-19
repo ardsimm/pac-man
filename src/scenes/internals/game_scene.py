@@ -11,6 +11,7 @@ from src.maze.maze_provider import CORRIDOR, MazeProvider
 from src.scenes.scene import Scene
 from src.scenes.view.game_view import GameView
 from src.ui import Box, Drawable, Button, Maze
+from src.ui.base import Sprite
 
 
 class GameScene(Scene):
@@ -30,6 +31,8 @@ class GameScene(Scene):
         )
         super_pac_gums = np.zeros_like(pac_gums)
         used_coordinates: Set[Tuple[int, int]] = set()
+
+        self.tile_size = 32
 
         for _ in range(
             min(
@@ -56,11 +59,11 @@ class GameScene(Scene):
 
         self.view = GameView(
             pacman=Pacman(
-                x=config.levels[0].width + 1,
-                y=config.levels[0].height + 1,
+                x=config.levels[0].width,
+                y=config.levels[0].height,
                 direction=Direction.UP,
                 personnality=lambda: None,
-                sprite="TBD",
+                sprite="pacman",
                 animation_index=0,
             ),
             ghosts=[],
@@ -70,11 +73,12 @@ class GameScene(Scene):
         )
 
     def draw(self) -> List[Drawable]:
+        print(self.view.pacman.x * self.tile_size, self.view.pacman.y * self.tile_size)
         return [
             Maze(
                 0,
                 0,
-                16,
+                self.tile_size,
                 self.view.maze,
                 self.view.pac_gums,
                 self.view.super_pac_gums,
@@ -85,11 +89,12 @@ class GameScene(Scene):
                 64,
                 (255, 255, 255, 255),
             ),
-            Button(
-                "simon je te suce",
-                Box(x=0, y=0, width=50, height=100),
+            Sprite(
+                f"{self.view.pacman.sprite}/right",
+                self.view.pacman.x * self.tile_size,
+                self.view.pacman.y * self.tile_size,
                 32,
-                (255, 255, 255, 255),
+                32,
             ),
         ]
 

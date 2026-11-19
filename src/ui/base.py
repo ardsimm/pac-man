@@ -20,6 +20,9 @@ class Rect:
     box: Box
     color: Color
 
+    def items(self) -> list["Item"]:
+        return [self]
+
 
 @dataclass(frozen=True)
 class Text:
@@ -28,6 +31,9 @@ class Text:
     color: Color
     box: Box
     anchor: Anchor = Anchor.CENTER
+
+    def items(self) -> list["Item"]:
+        return [self]
 
 
 @dataclass(frozen=True)
@@ -39,6 +45,9 @@ class Sprite:
     w: int
     state: int = 0
 
+    def items(self) -> list["Item"]:
+        return [self]
+
 
 @dataclass(frozen=True)
 class TileMap:
@@ -47,6 +56,9 @@ class TileMap:
     y: int
     tile_size: int
     tile_map: npt.NDArray[np.uint8]
+
+    def items(self) -> list["Item"]:
+        return [self]
 
 
 Item = Text | Sprite | TileMap | Rect

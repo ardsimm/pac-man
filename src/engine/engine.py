@@ -20,7 +20,7 @@ class Engine:
     def __init__(self, config: Config) -> None:
         self.clock = Clock(max_ticks=5, tick_rate=60, ts=time.time_ns())
         self.scene_manager = SceneManager(config=config)
-        self.renderer = Renderer(500, 500)
+        self.renderer = Renderer(1500,1500)
 
     def tick(self, events: List[pygame.Event]) -> None:
         self.scene_manager.update([])
