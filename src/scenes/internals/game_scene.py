@@ -10,7 +10,7 @@ from src.event.event import Event
 from src.maze.maze_provider import CORRIDOR, MazeProvider
 from src.scenes.scene import Scene
 from src.scenes.view.game_view import GameView
-from src.ui import Box, Drawable, Label
+from src.ui import Box, Drawable, Button, Maze
 
 
 class GameScene(Scene):
@@ -71,10 +71,24 @@ class GameScene(Scene):
 
     def draw(self) -> List[Drawable]:
         return [
-            Label(
+            Maze(
+                0,
+                0,
+                16,
+                self.view.maze,
+                self.view.pac_gums,
+                self.view.super_pac_gums,
+            ),
+            Button(
                 "ntm",
                 Box(x=150, y=150, width=200, height=200),
                 64,
+                (255, 255, 255, 255),
+            ),
+            Button(
+                "simon je te suce",
+                Box(x=0, y=0, width=50, height=100),
+                32,
                 (255, 255, 255, 255),
             ),
         ]

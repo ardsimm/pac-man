@@ -52,7 +52,7 @@ class TextureManager:
 
     @staticmethod
     def _default_asset(h: int, w: int) -> npt.NDArray[np.uint8]:
-        tex = np.full((h, w, 4), (255, 0, 255, 255), dtype=np.uint8)
+        tex = np.full((w, h, 4), (255, 0, 255, 255), dtype=np.uint8)
         tex[0: w // 2, 0: h // 2] = (0, 0, 0, 255)
         tex[w // 2: w, h // 2: h] = (0, 0, 0, 255)
         return tex
