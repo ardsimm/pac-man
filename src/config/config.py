@@ -7,8 +7,8 @@ from pydantic.fields import Field
 class Level(BaseModel):
     name: str = Field(min_length=2, default="default")
     seed: str = Field(min_length=1, default="42")
-    width: int = Field(gt=5, default=50)
-    height: int = Field(gt=5, default=50)
+    width: int = Field(gt=5, default=15)
+    height: int = Field(gt=5, default=15)
     is_perfect: bool = Field(default=False)
     super_pacgums: int = Field(default=16)
 

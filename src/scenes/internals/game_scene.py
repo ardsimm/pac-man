@@ -10,7 +10,7 @@ from src.event.event import Event
 from src.maze.maze_provider import CORRIDOR, MazeProvider
 from src.scenes.scene import Scene
 from src.scenes.view.game_view import GameView
-from src.ui import Box, Drawable, Button, Maze
+from src.ui import Box, Button, Drawable, Maze
 from src.ui.base import Sprite
 
 
@@ -57,10 +57,12 @@ class GameScene(Scene):
             pac_gums[new_coord[0], new_coord[1]] = 0
             super_pac_gums[new_coord[0], new_coord[1]] = 1
 
+        maze_dimension = maze_provider.size
+
         self.view = GameView(
             pacman=Pacman(
-                x=config.levels[0].width,
-                y=config.levels[0].height,
+                x=maze_dimension[1] - (1 if not maze_dimension[1] % 2 else 0),
+                y=maze_dimension[0],
                 direction=Direction.UP,
                 personnality=lambda: None,
                 sprite="pacman",
@@ -73,7 +75,12 @@ class GameScene(Scene):
         )
 
     def draw(self) -> List[Drawable]:
-        print(self.view.pacman.x * self.tile_size, self.view.pacman.y * self.tile_size)
+        print(
+            self.view.pacman.x,
+            self.view.pacman.y,
+            self.view.pacman.x * (self.tile_size),
+            self.view.pacman.y * (self.tile_size),
+        )
         return [
             Maze(
                 0,
@@ -91,8 +98,8 @@ class GameScene(Scene):
             ),
             Sprite(
                 f"{self.view.pacman.sprite}/right",
-                self.view.pacman.x * self.tile_size,
-                self.view.pacman.y * self.tile_size,
+                self.view.pacman.x * (self.tile_size),
+                self.view.pacman.y * (self.tile_size),
                 32,
                 32,
             ),
