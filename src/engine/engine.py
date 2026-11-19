@@ -20,23 +20,22 @@ class Engine:
     def __init__(self, config: Config) -> None:
         self.clock = Clock(max_ticks=5, tick_rate=60, ts=time.time_ns())
         self.scene_manager = SceneManager(config=config)
-        self.renderer = Renderer(
-            500, 500
-        )
+        self.renderer = Renderer(1500, 1500)
 
     def tick(self, events: List[pygame.Event]) -> None:
         self.scene_manager.update([])
 
     def draw(self) -> None:
-        self.renderer.render(
-            self.scene_manager.draw()
-        )
+        self.renderer.render(self.scene_manager.draw())
 
     def run(self) -> None:
         pygame.init()
         while self.running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
             ticks_count = self.clock.get_ticks()
             if ticks_count > 0:
                 for _ in range(ticks_count):
                     self.tick(pygame.event.get())
-                    self.draw()
+                self.draw()

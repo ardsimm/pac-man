@@ -10,7 +10,8 @@ from src.event.event import Event
 from src.maze.maze_provider import CORRIDOR, MazeProvider
 from src.scenes.scene import Scene
 from src.scenes.view.game_view import GameView
-from src.ui.base import Item
+from src.ui import Box, Button, Drawable, Maze
+from src.ui.base import Sprite
 
 
 class GameScene(Scene):
@@ -30,6 +31,8 @@ class GameScene(Scene):
         )
         super_pac_gums = np.zeros_like(pac_gums)
         used_coordinates: Set[Tuple[int, int]] = set()
+
+        self.tile_size = 32
 
         for _ in range(
             min(
@@ -54,13 +57,15 @@ class GameScene(Scene):
             pac_gums[new_coord[0], new_coord[1]] = 0
             super_pac_gums[new_coord[0], new_coord[1]] = 1
 
+        maze_dimension = maze_provider.size
+
         self.view = GameView(
             pacman=Pacman(
-                x=config.levels[0].width + 1,
-                y=config.levels[0].height + 1,
+                x=maze_dimension[1] - (1 if not maze_dimension[1] % 2 else 0),
+                y=maze_dimension[0],
                 direction=Direction.UP,
                 personnality=lambda: None,
-                sprite="TBD",
+                sprite="pacman",
                 animation_index=0,
             ),
             ghosts=[],
@@ -69,8 +74,36 @@ class GameScene(Scene):
             super_pac_gums=super_pac_gums,
         )
 
-    def draw(self) -> List[Item]:
-        raise NotImplementedError("Method not implemented")
+    def draw(self) -> List[Drawable]:
+        print(
+            self.view.pacman.x,
+            self.view.pacman.y,
+            self.view.pacman.x * (self.tile_size),
+            self.view.pacman.y * (self.tile_size),
+        )
+        return [
+            Maze(
+                0,
+                0,
+                self.tile_size,
+                self.view.maze,
+                self.view.pac_gums,
+                self.view.super_pac_gums,
+            ),
+            Button(
+                "ntm",
+                Box(x=150, y=150, width=200, height=200),
+                64,
+                (255, 255, 255, 255),
+            ),
+            Sprite(
+                f"{self.view.pacman.sprite}/right",
+                self.view.pacman.x * (self.tile_size),
+                self.view.pacman.y * (self.tile_size),
+                32,
+                32,
+            ),
+        ]
 
     def update(self, events: List[Event]) -> None:
-        raise NotImplementedError("Method not implemented")
+        pass
