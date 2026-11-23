@@ -75,12 +75,6 @@ class GameScene(Scene):
         )
 
     def draw(self) -> List[Drawable]:
-        print(
-            self.view.pacman.x,
-            self.view.pacman.y,
-            self.view.pacman.x * (self.tile_size),
-            self.view.pacman.y * (self.tile_size),
-        )
         return [
             Maze(
                 0,

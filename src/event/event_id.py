@@ -4,9 +4,7 @@ from enum import Enum
 class EventId(Enum):
 
     # System events
-    KEY_UP = 100
-    KEY_DOWN = 101
-    QUIT = 102
+    PYGAME_EVENT = 100
 
     # Game events
     GAME_OVER = 200
