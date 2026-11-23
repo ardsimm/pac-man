@@ -79,7 +79,7 @@ TODO
 
 <!--
 - File format: JSON with comments (lines starting with `#`, and `//` if supported)
-- Behaviour on faulty values: clamped to defaults, warning logged, unknown keys ignored
+- behavior on faulty values: clamped to defaults, warning logged, unknown keys ignored
 -->
 
 TODO
@@ -132,7 +132,7 @@ TODO
 <!--
 - Where and how scores are stored (format, location)
 - Validation rules: name ≤ 10 chars, alphanumeric and spaces; scores ≥ 0
-- Behaviour on missing or corrupted file
+- behavior on missing or corrupted file
 - WHY this implementation was chosen
 -->
 
@@ -157,7 +157,7 @@ Technical summary:
 - fixed-timestep game loop (engine) and how it fits in the MLX loop
 - scene stack (menu, playing, pause, game over...)
 - player movement and buffered direction
-- ghost behaviour (chase / frightened / eaten) and chosen strategy
+- ghost behavior (chase / frightened / eaten) and chosen strategy
 - collision detection
 - timers counted in ticks
 - error handling strategy ("no traceback")

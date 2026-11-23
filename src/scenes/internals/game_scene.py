@@ -1,12 +1,20 @@
 import random
-from typing import List, Set, Tuple
+from typing import List, Optional, Set, Tuple
 
 import numpy as np
+import pygame
 
 from src.config.config import Config
+from src.entities.behaviors.pacman_behavior import pacman_behavior
+from src.entities.behaviors.utils import can_reach
 from src.entities.pacman import Pacman
 from src.enums import Direction
 from src.event.event import Event
+from src.event.event_id import EventId
+from src.event.game_event import GameEvent
+from src.event.navigation_event import NavigationEvent
+from src.event.system_event import SystemEvent
+from src.event.user_event import UserEvent
 from src.maze.maze_provider import CORRIDOR, MazeProvider
 from src.scenes.scene import Scene
 from src.scenes.view.game_view import GameView
@@ -17,10 +25,13 @@ from src.ui.base import Sprite
 class GameScene(Scene):
 
     view: GameView
+    tick_count: int
+    pacman_desired_direction: Optional[Direction] = None
 
     def __init__(self, config: Config) -> None:
         super().__init__(config)
 
+        self.tick_count = 0
         maze_provider = MazeProvider.get_instance(
             size=(config.levels[0].width, config.levels[0].height)
         )
@@ -64,7 +75,7 @@ class GameScene(Scene):
                 x=maze_dimension[1] - (1 if not maze_dimension[1] % 2 else 0),
                 y=maze_dimension[0],
                 direction=Direction.UP,
-                personnality=lambda: None,
+                behavior=pacman_behavior,
                 sprite="pacman",
                 animation_index=0,
             ),
@@ -99,5 +110,62 @@ class GameScene(Scene):
             ),
         ]
 
+    def __update_pacman(self, events: List[UserEvent]) -> None:
+        for event in events:
+            if event.event_id == EventId.MOVE_UP:
+                self.pacman_desired_direction = Direction.UP
+            elif event.event_id == EventId.MOVE_RIGHT:
+                self.pacman_desired_direction = Direction.RIGHT
+            elif event.event_id == EventId.MOVE_DOWN:
+                self.pacman_desired_direction = Direction.DOWN
+            elif event.event_id == EventId.MOVE_LEFT:
+                self.pacman_desired_direction = Direction.LEFT
+
+        if self.pacman_desired_direction and can_reach(
+            self.view.maze,
+            (self.view.pacman.x, self.view.pacman.y),
+            self.pacman_desired_direction,
+        ):
+            self.view.pacman.direction = self.pacman_desired_direction
+            self.pacman_desired_direction = None
+
+        speed = self.config.pacman_speed
+        nx, ny = self.view.pacman.behavior(self.view)
+        self.view.pacman.x_step += nx * (speed / 100)
+        self.view.pacman.y_step += ny * (speed / 100)
+        if abs(self.view.pacman.x_step) >= 1.0:
+            self.view.pacman.x += int(self.view.pacman.x_step)
+            self.view.pacman.x_step = 0.0
+        if abs(self.view.pacman.y_step) >= 1.0:
+            self.view.pacman.y += int(self.view.pacman.y_step)
+            self.view.pacman.y_step = 0.0
+
     def update(self, events: List[Event]) -> None:
-        pass
+        user_events: List[UserEvent] = []
+        for event in events:
+            match event:
+                case SystemEvent():
+                    if event.pygame_event.type == pygame.KEYDOWN:
+                        if event.pygame_event.key in [pygame.K_UP, pygame.K_w]:
+                            user_events.append(UserEvent(EventId.MOVE_UP))
+                        if event.pygame_event.key in [
+                            pygame.K_RIGHT,
+                            pygame.K_d,
+                        ]:
+                            user_events.append(UserEvent(EventId.MOVE_RIGHT))
+                        if event.pygame_event.key in [
+                            pygame.K_DOWN,
+                            pygame.K_s,
+                        ]:
+                            user_events.append(UserEvent(EventId.MOVE_DOWN))
+                        if event.pygame_event.key in [
+                            pygame.K_LEFT,
+                            pygame.K_a,
+                        ]:
+                            user_events.append(UserEvent(EventId.MOVE_LEFT))
+                case NavigationEvent():
+                    pass
+                case GameEvent():
+                    pass
+        self.__update_pacman(user_events)
+        self.tick_count += 1
