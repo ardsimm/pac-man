@@ -9,6 +9,7 @@ from src.event.event import Event
 from src.event.system_event import SystemEvent
 from src.render.renderer import Renderer
 from src.scenes.scene_manager import SceneManager
+from src.backend import Backend
 
 
 class Engine:
@@ -18,11 +19,14 @@ class Engine:
     clock: Clock
     scene_manager: SceneManager
     renderer: Renderer
+    backend: Backend
 
     def __init__(self, config: Config) -> None:
+        self.GRID = (40, 40)
         self.clock = Clock(max_ticks=5, tick_rate=60, ts=time.time_ns())
         self.scene_manager = SceneManager(config=config)
-        self.renderer = Renderer(1500, 1500)
+        self.backend = Backend.init("pygame")
+        self.renderer = Renderer(1920, 1080)
 
     def __map_pygame_events(self, pygame_events: List[pygame.Event]) -> List[Event]:
         return [
