@@ -1,8 +1,6 @@
 import time
 from typing import List
 
-import pygame
-
 from src.config.config import Config
 from src.engine.clock import Clock
 from src.event.event import Event
@@ -10,6 +8,7 @@ from src.event.system_event import SystemEvent
 from src.render.renderer import Renderer
 from src.scenes.scene_manager import SceneManager
 from src.backend import Backend
+from src.event.event import Event, EventId
 
 
 class Engine:
@@ -29,32 +28,19 @@ class Engine:
         self.backend.set_display((1920, 1080), False)
         self.renderer = Renderer(self.backend)
 
-    def __map_pygame_events(self, pygame_events: List[pygame.Event]) -> List[Event]:
-        return [
-            SystemEvent(
-                pygame_event=pygame_event
-            )
-        for pygame_event in pygame_events
-        ]
-
     def tick(self, events: List[Event]) -> None:
-        self.scene_manager.update(events)
+        self.scene_manager.update([])
 
     def draw(self) -> None:
         self.renderer.render(self.scene_manager.draw())
 
     def run(self) -> None:
-        pygame.init()
         while self.running:
-            events = pygame.event.get()
-            filtered_events: List[pygame.Event] = []
-            for event in events:
-                if event.type == pygame.QUIT:
+            for event in self.backend.poll_events():
+                if event.type == EventId.QUIT:
                     self.running = False
-                else:
-                    filtered_events.append(event)
             ticks_count = self.clock.get_ticks()
             if ticks_count > 0:
                 for _ in range(ticks_count):
-                    self.tick(self.__map_pygame_events(filtered_events))
+                    self.tick(self.backend.poll_events())
                 self.draw()

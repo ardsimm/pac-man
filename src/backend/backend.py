@@ -3,6 +3,8 @@ import numpy as np
 import numpy.typing as npt
 from typing import Literal
 
+from src.event.event import Event
+
 BACKEND = Literal["pygame"]
 
 
@@ -25,7 +27,7 @@ class Backend(ABC):
         pass
 
     @abstractmethod
-    def poll_events(self) -> None:
+    def poll_events(self) -> list[Event]:
         pass
 
     @staticmethod

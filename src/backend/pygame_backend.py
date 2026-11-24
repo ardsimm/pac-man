@@ -4,6 +4,7 @@ import numpy.typing as npt
 import pygame
 
 from .backend import Backend
+from src.event.event import Event
 
 WEB = sys.platform == "emscripten"
 
@@ -41,8 +42,8 @@ class PyGameBackend(Backend):
             return int(window.innerWidth), int(window.innerHeight)
         return pygame.display.get_desktop_sizes()[0]
 
-    def poll_events(self) -> None:
-        pass
+    def poll_events(self) -> list[Event]:
+        return []
 
     def present(self, buff: npt.NDArray[np.uint8]) -> None:
         h, w = buff.shape[:2]
