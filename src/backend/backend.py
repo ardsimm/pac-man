@@ -11,6 +11,7 @@ class Backend(ABC):
     def set_display(self, size: tuple[int, int], fullscreen: bool) -> None:
         pass
 
+    @property
     @abstractmethod
     def size(self) -> tuple[int, int]:
         pass

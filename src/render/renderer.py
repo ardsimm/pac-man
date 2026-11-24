@@ -1,48 +1,40 @@
-from pathlib import Path
 from typing import List
 
 import numpy as np
 import numpy.typing as npt
-import pygame
-import pygame.freetype
+
 
 from src.ui.base import Item, Text, Sprite, TileMap
 from src.ui import Anchor
+from src.backend import Backend
 
 from .models import Frame
 from .texture.texture_manager import TextureManager
+from .font import FontRenderer
 
 
 class Renderer:
-    def __init__(self, width: int, height: int) -> None:
-        self.frame: Frame = np.zeros((height, width, 4), np.uint8)
-        self._surf = pygame.image.frombuffer(
-            self.frame, (width, height), "RGBA"
-        )
-        self._screen = pygame.display.set_mode((width, height))
+    def __init__(self, backend: Backend) -> None:
+        self._backend = backend
+
+        w, h = self._backend.size
+        self.frame: Frame = np.zeros((h, w, 4), np.uint8)
         self._texture_manager: TextureManager = TextureManager()
-        pygame.init()
-        self._font = self._load_font()
-        self._font.antialiased = False
+        self._font_renderer: FontRenderer = FontRenderer()
 
-    @staticmethod
-    def _load_font() -> pygame.freetype.Font:
-        if not Path("assets/pacman_font.ttf").exists():
-            return pygame.freetype.Font(pygame.font.get_default_font())
-        else:
-            return pygame.freetype.Font("assets/pacman_font.ttf")
-
-    def _get_text_position(self, text: Text) -> tuple[float, float]:
-        rect = self._font.get_rect(text.label, size=text.font_size)
+    def _get_text_position(
+        self, text: Text, rendered: npt.NDArray[np.uint8]
+    ) -> tuple[float, float]:
+        h, w = rendered.shape[:2]
         box = text.box
-        y = box.y + (box.height - rect.height) / 2
+        y = box.y + (box.height - h) / 2
         match text.anchor:
-            case Anchor.LEFT:
-                x = box.x
             case Anchor.RIGHT:
-                x = box.x + box.width - rect.width
+                x = box.x + box.width - w
             case Anchor.CENTER:
-                x = box.x + (box.width - rect.width) / 2
+                x = box.x + (box.width - w) / 2
+            case _:
+                x = box.x
         return x, y
 
     @staticmethod
@@ -67,13 +59,11 @@ class Renderer:
         for item in items:
             match item:
                 case Text():
-                    self._font.render_to(
-                        self._surf,
-                        self._get_text_position(item),
-                        item.label,
-                        item.color,
-                        size=item.font_size,
+                    text = self._font_renderer.create_text(
+                        item.label, item.font_size, item.color
                     )
+                    x, y = self._get_text_position(item, text)
+                    self._draw(self.frame, x, y, text)
                 case Sprite():
                     self._draw(
                         self.frame,
@@ -88,5 +78,4 @@ class Renderer:
                         item.tile_map, item.tile_size, item.key
                     )
                     self._draw(self.frame, item.x, item.y, bake_map)
-        self._screen.blit(self._surf, (0, 0))
-        pygame.display.flip()
+        self._backend.present(self.frame)

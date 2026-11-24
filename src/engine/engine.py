@@ -26,7 +26,8 @@ class Engine:
         self.clock = Clock(max_ticks=5, tick_rate=60, ts=time.time_ns())
         self.scene_manager = SceneManager(config=config)
         self.backend = Backend.init("pygame")
-        self.renderer = Renderer(1920, 1080)
+        self.backend.set_display((1920, 1080), False)
+        self.renderer = Renderer(self.backend)
 
     def __map_pygame_events(self, pygame_events: List[pygame.Event]) -> List[Event]:
         return [

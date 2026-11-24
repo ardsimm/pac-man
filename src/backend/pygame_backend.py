@@ -20,6 +20,7 @@ class PyGameBackend(Backend):
             raise RuntimeError("set_display() have to be called before")
         return self._screen
 
+    @property
     def size(self) -> tuple[int, int]:
         return self._surface.size
 
