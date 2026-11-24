@@ -11,7 +11,7 @@ from src.ui.base import Color
 class FontRenderer:
     def __init__(self) -> None:
         self._load_font = lru_cache()(self._open_font)
-        self._create_cached_text = lru_cache(maxsize=128)(self._get_text)
+        self.create_text = lru_cache(maxsize=128)(self._create_text)
 
     def _open_font(self, size: int) -> ImageFont.FreeTypeFont:
         font_path = Path("assets/pacman_font.ttf")
@@ -25,7 +25,9 @@ class FontRenderer:
             font_path, size=size, layout_engine=ImageFont.Layout.BASIC
         )
 
-    def _get_text(self, label: str, size: int) -> npt.NDArray[np.uint8]:
+    def _create_text(
+        self, label: str, size: int, color: Color
+    ) -> npt.NDArray[np.uint8]:
         _font = self._load_font(size)
 
         left, top, right, bottom = _font.getbbox(label)
@@ -34,11 +36,5 @@ class FontRenderer:
 
         draw = ImageDraw.Draw(img)
         draw.fontmode = "1"
-        draw.text((-left, -top), label, font=_font, fill=(255, 255, 255, 255))
+        draw.text((-left, -top), label, font=_font, fill=color)
         return np.asarray(img, dtype=np.uint8)
-
-    def create_text(
-        self, label: str, size: int, color: Color
-    ) -> npt.NDArray[np.uint8]:
-        text = self._create_cached_text(label, size)
-        return text
