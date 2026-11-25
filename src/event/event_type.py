@@ -5,3 +5,4 @@ class EventType(Enum):
     SYSTEM = 0
     NAVIGATION = 1
     GAME = 2
+    USER = 3

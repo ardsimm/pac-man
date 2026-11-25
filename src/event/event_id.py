@@ -12,3 +12,9 @@ class EventId(Enum):
 
     # Navigation events
     NAVIGATE_TO = 300
+
+    # User events
+    MOVE_UP = 400
+    MOVE_RIGHT = 401
+    MOVE_DOWN = 402
+    MOVE_LEFT = 403
