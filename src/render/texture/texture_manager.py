@@ -1,3 +1,4 @@
+import sys
 from typing import Any
 from functools import lru_cache
 
@@ -86,7 +87,7 @@ class TextureManager:
         try:
             assets = self._load_assets(name)
         except ThemeNotFound as e:
-            print(f"Error: {e}")
+            print(f"Error: {e}", file=sys.stderr)
             return
         self.get_asset.cache_clear()
         self._cached_bake.cache_clear()
@@ -97,7 +98,7 @@ class TextureManager:
             with Image.open(path) as img:
                 rgba = np.array(img.convert("RGBA"))
         except IOError:
-            print(f"Failed to load asset: {path.name}")
+            print(f"Failed to load asset: {path.name}", file=sys.stderr)
             return self._default_asset(16, 16)
         return rgba
 

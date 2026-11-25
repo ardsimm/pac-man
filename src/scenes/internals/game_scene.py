@@ -2,7 +2,6 @@ import random
 from typing import List, Optional, Set, Tuple
 
 import numpy as np
-import pygame
 
 from src.config.config import Config
 from src.entities.behaviors.pacman_behavior import pacman_behavior
@@ -11,9 +10,6 @@ from src.entities.pacman import Pacman
 from src.enums import Direction
 from src.event.event import Event
 from src.event.event_id import EventId
-from src.event.game_event import GameEvent
-from src.event.navigation_event import NavigationEvent
-from src.event.system_event import SystemEvent
 from src.event.user_event import UserEvent
 from src.maze.maze_provider import CORRIDOR, MazeProvider
 from src.scenes.scene import Scene
@@ -111,6 +107,7 @@ class GameScene(Scene):
         ]
 
     def __update_pacman(self, events: List[UserEvent]) -> None:
+        print([event.event_id for event in events])
         for event in events:
             if event.event_id == EventId.MOVE_UP:
                 self.pacman_desired_direction = Direction.UP
@@ -144,28 +141,7 @@ class GameScene(Scene):
         user_events: List[UserEvent] = []
         for event in events:
             match event:
-                case SystemEvent():
-                    if event.pygame_event.type == pygame.KEYDOWN:
-                        if event.pygame_event.key in [pygame.K_UP, pygame.K_w]:
-                            user_events.append(UserEvent(EventId.MOVE_UP))
-                        if event.pygame_event.key in [
-                            pygame.K_RIGHT,
-                            pygame.K_d,
-                        ]:
-                            user_events.append(UserEvent(EventId.MOVE_RIGHT))
-                        if event.pygame_event.key in [
-                            pygame.K_DOWN,
-                            pygame.K_s,
-                        ]:
-                            user_events.append(UserEvent(EventId.MOVE_DOWN))
-                        if event.pygame_event.key in [
-                            pygame.K_LEFT,
-                            pygame.K_a,
-                        ]:
-                            user_events.append(UserEvent(EventId.MOVE_LEFT))
-                case NavigationEvent():
-                    pass
-                case GameEvent():
-                    pass
+                case UserEvent():
+                    user_events.append(event)
         self.__update_pacman(user_events)
         self.tick_count += 1

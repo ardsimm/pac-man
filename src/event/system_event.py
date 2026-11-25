@@ -1,16 +1,19 @@
-import pygame
-
+from src.config.keys import KeyName
 from src.event.event import Event
 from src.event.event_id import EventId
 
 
 class SystemEvent(Event):
-    pygame_event: pygame.Event
-
     def __init__(
         self,
-        pygame_event: pygame.Event,
-        event_id: EventId = EventId.PYGAME_EVENT,
+        event_id: EventId,
     ) -> None:
         super().__init__(event_id)
-        self.pygame_event = pygame_event
+
+
+class KeyDownEvent(SystemEvent):
+    keyname: KeyName
+
+    def __init__(self, keyname: KeyName) -> None:
+        super().__init__(EventId.KEY_DOWN)
+        self.keyname = keyname
