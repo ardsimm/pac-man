@@ -15,7 +15,6 @@ class Main:
             return 1
         try:
             config = Parser().parse_config(av[1])
-            print(config)
         except ParsingError as err:
             print(sys.stdout, f"Parsing error:\n{err}")
             return 1
