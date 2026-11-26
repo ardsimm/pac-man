@@ -3,6 +3,25 @@ from typing import List
 from pydantic import BaseModel
 from pydantic.fields import Field
 
+from src.config.keys import KeyName
+
+
+class Keymap(BaseModel):
+    move_up: List[str] = Field(
+        default=[KeyName.UP_ARROW.value, KeyName.W.value]
+    )
+    move_left: List[str] = Field(
+        default=[KeyName.LEFT_ARROW.value, KeyName.A.value]
+    )
+    move_down: List[str] = Field(
+        default=[KeyName.DOWN_ARROW.value, KeyName.S.value]
+    )
+    move_right: List[str] = Field(
+        default=[KeyName.RIGHT_ARROW.value, KeyName.D.value]
+    )
+    pause: List[str] = Field(default=[KeyName.SPACE.value])
+    menu: List[str] = Field(default=[KeyName.ESCAPE.value])
+
 
 class Level(BaseModel):
     name: str = Field(min_length=2, default="default")
@@ -15,6 +34,7 @@ class Level(BaseModel):
 
 class Config(BaseModel):
     levels: List[Level] = Field(default=[Level()])
+    keymap: Keymap = Field(default=Keymap())
     lives: int = Field(default=3)
     pacgum: int = Field(default=42)
     points_per_pacgum: int = Field(default=10)

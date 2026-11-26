@@ -1,18 +1,41 @@
 import sys
+from typing import List, Optional
+
 import numpy as np
 import numpy.typing as npt
 import pygame
 
-from .backend import Backend
+from src.config.config import Config
+from src.config.keys import KeyName
 from src.event.event import Event
+from src.event.event_id import EventId
+from src.event.system_event import KeyDownEvent, SystemEvent
+
+from .backend import Backend
 
 WEB = sys.platform == "emscripten"
 
 
 class PyGameBackend(Backend):
-    def __init__(self) -> None:
+
+    config: Config
+
+    def __init__(self, config: Config) -> None:
         pygame.display.init()
         self._screen: pygame.Surface | None = None
+        self.key_map = {
+            "up": KeyName.UP_ARROW,
+            "left": KeyName.LEFT_ARROW,
+            "down": KeyName.DOWN_ARROW,
+            "right": KeyName.RIGHT_ARROW,
+            "space": KeyName.SPACE,
+            "escape": KeyName.ESCAPE,
+            "w": KeyName.W,
+            "a": KeyName.A,
+            "s": KeyName.S,
+            "d": KeyName.D
+        }
+        self.config = config
         pygame.init()
 
     @property
@@ -42,8 +65,25 @@ class PyGameBackend(Backend):
             return int(window.innerWidth), int(window.innerHeight)
         return pygame.display.get_desktop_sizes()[0]
 
+    def get_keyname(self, code: int) -> Optional[KeyName]:
+        try:
+            pygame_name = pygame.key.name(code)
+            return self.key_map.get(pygame_name)
+        except ValueError:
+            return None
+
     def poll_events(self) -> list[Event]:
-        return []
+        events: List[Event] = []
+        pygame_events = pygame.event.get()
+        for event in pygame_events:
+            if event.type == pygame.QUIT:
+                events.append(SystemEvent(EventId.QUIT))
+            elif event.type == pygame.KEYDOWN:
+                keyname = self.get_keyname(event.key)
+                if keyname is None:
+                    continue
+                events.append(KeyDownEvent(keyname=keyname))
+        return events
 
     def present(self, buff: npt.NDArray[np.uint8]) -> None:
         h, w = buff.shape[:2]

@@ -4,6 +4,9 @@ import numpy as np
 
 from src.config.config import Config
 from src.event.event import Event
+from src.event.event_id import EventId
+from src.event.system_event import KeyDownEvent
+from src.event.user_event import UserEvent
 from src.scenes import Scene
 from src.scenes.internals.game_scene import GameScene
 from src.scenes.internals.ui_scene import UIScene
@@ -17,8 +20,10 @@ class SceneManager:
     frame: np.ndarray
     __scene_stack: List[Scene]
     __scenes: Dict[SceneType, Scene]
+    config: Config
 
     def __init__(self, config: Config) -> None:
+        self.config = config
         self.__scenes = {
             SceneType.GAME_SCENE: GameScene(config),
             SceneType.MAIN_MENU_SCENE: UIScene(config),
@@ -44,10 +49,37 @@ class SceneManager:
         self.__scene_stack.append(scene)
         self.__scene_stack.sort(key=lambda scene: scene.z_index)
 
+    def map_events(
+        self, events: List[KeyDownEvent]
+    ) -> List[Event]:
+        mapped_events: List[Event] = []
+        for event in events:
+            match event:
+                case KeyDownEvent():
+                    if event.keyname.value in self.config.keymap.move_up:
+                        mapped_events.append(UserEvent(EventId.MOVE_UP))
+                    if event.keyname.value in self.config.keymap.move_left:
+                        mapped_events.append(UserEvent(EventId.MOVE_LEFT))
+                    if event.keyname.value in self.config.keymap.move_right:
+                        mapped_events.append(UserEvent(EventId.MOVE_RIGHT))
+                    if event.keyname.value in self.config.keymap.move_down:
+                        mapped_events.append(UserEvent(EventId.MOVE_DOWN))
+                    if event.keyname.value in self.config.keymap.pause:
+                        mapped_events.append(UserEvent(EventId.PAUSE))
+                    if event.keyname.value in self.config.keymap.menu:
+                        mapped_events.append(UserEvent(EventId.MENU))
+        return mapped_events
+
     def update(self, events: List[Event]) -> None:
         if not len(self.__scene_stack):
             return
-        self.__scene_stack[len(self.__scene_stack) - 1].update(events)
+        self.__scene_stack[len(self.__scene_stack) - 1].update(
+            self.map_events([
+                event
+                for event in events
+                if isinstance(event, KeyDownEvent)
+            ])
+        )
 
     def draw(self) -> List[Item]:
         items: List[Item] = []

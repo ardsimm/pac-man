@@ -11,12 +11,15 @@ class Main:
     @staticmethod
     def main(ac: int, av: List[str]) -> int:
         if ac != 2:
-            print("Invalid usage, usage:\nuv run python -m src [config_file]")
+            print(
+                "Invalid usage, usage:\nuv run python -m src [config_file]",
+                file=sys.stderr,
+            )
             return 1
         try:
             config = Parser().parse_config(av[1])
         except ParsingError as err:
-            print(sys.stdout, f"Parsing error:\n{err}")
+            print(f"Parsing error:\n{err}", file=sys.stderr)
             return 1
         Engine(config).run()
         return 0
