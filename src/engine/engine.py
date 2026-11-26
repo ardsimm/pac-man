@@ -21,7 +21,6 @@ class Engine:
     backend: Backend
 
     def __init__(self, config: Config) -> None:
-        self.GRID = (40, 40)
         self.clock = Clock(max_ticks=5, tick_rate=60, ts=time.time_ns())
         self.scene_manager = SceneManager(config=config)
         self.backend = Backend.init("pygame")
@@ -29,7 +28,7 @@ class Engine:
         self.renderer = Renderer(self.backend)
 
     def tick(self, events: List[Event]) -> None:
-        self.scene_manager.update([])
+        self.scene_manager.update(events)
 
     def draw(self) -> None:
         self.renderer.render(self.scene_manager.draw())

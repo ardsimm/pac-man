@@ -90,23 +90,22 @@ class GameScene(Scene):
             Maze(
                 0,
                 0,
-                self.tile_size,
                 self.view.maze,
                 self.view.pac_gums,
                 self.view.super_pac_gums,
             ),
             Button(
                 "ntm",
-                Box(x=150, y=150, width=200, height=200),
-                64,
+                Box(x=10, y=10, width=8, height=3),
+                2,
                 (255, 255, 255, 255),
             ),
             Sprite(
                 f"{self.view.pacman.sprite}/right",
-                self.view.pacman.x * (self.tile_size),
-                self.view.pacman.y * (self.tile_size),
-                32,
-                32,
+                self.view.pacman.x,
+                self.view.pacman.y,
+                1,
+                1,
             ),
         ]
 

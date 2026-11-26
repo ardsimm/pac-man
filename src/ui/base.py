@@ -41,8 +41,8 @@ class Sprite:
     texture: str
     x: float
     y: float
-    h: int
-    w: int
+    h: float
+    w: float
     state: int = 0
 
     def items(self) -> list["Item"]:
@@ -52,9 +52,8 @@ class Sprite:
 @dataclass(frozen=True)
 class TileMap:
     key: str
-    x: int
-    y: int
-    tile_size: int
+    x: float
+    y: float
     tile_map: npt.NDArray[np.uint8]
 
     def items(self) -> list["Item"]:
