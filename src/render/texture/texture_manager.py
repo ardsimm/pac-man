@@ -41,9 +41,9 @@ class TextureManager:
         tw, th = tile_size
 
         h, w = tile_map.shape
-        # Reshape multiplie 2 a 2 on change l ordre de la shape pour que les
-        #  valeurs se suivent h * ASSET_SIZE et w * ASSET_SIZE
-        # de base : (h, w, T, T, 4) -> (h, T, w, T, 4)
+        # Reshape multiplies 2 by 2; we change the order of the shape so that the
+        # values follow in the order h * ASSET_SIZE and w * ASSET_SIZE
+        # Default: (h, w, T, T, 4) -> (h, T, w, T, 4)
         maze_img = (
             walls[tile_map].transpose(0, 2, 1, 3, 4).reshape(h * th, w * tw, 4)
         )
