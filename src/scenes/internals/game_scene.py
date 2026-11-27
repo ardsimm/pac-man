@@ -126,7 +126,6 @@ class GameScene(Scene):
         nx, ny = self.view.pacman.behavior(self.view)
         if nx or ny:
             self.view.pacman.animation_index += speed
-            print("zizi")
         self.view.pacman.x_step += nx * (speed / 100)
         self.view.pacman.y_step += ny * (speed / 100)
         if abs(self.view.pacman.x_step) >= 1.0:
