@@ -68,7 +68,7 @@ class Maze:
             Sprite(
                 texture,
                 self.x + col,
-                self.y + row ,
+                self.y + row,
                 1,
                 1,
             )
@@ -77,9 +77,7 @@ class Maze:
 
     def items(self) -> list[Item]:
         return [
-            TileMap(
-                self.walls_texture, self.x, self.y, self.walls
-            ),
+            TileMap(self.walls_texture, self.x, self.y, self.walls),
             *self._gums(self.pac_gums, self.pac_gum_texture),
             *self._gums(self.super_pac_gums, self.super_pac_gum_texture),
         ]

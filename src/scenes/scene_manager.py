@@ -49,9 +49,7 @@ class SceneManager:
         self.__scene_stack.append(scene)
         self.__scene_stack.sort(key=lambda scene: scene.z_index)
 
-    def map_events(
-        self, events: List[KeyDownEvent]
-    ) -> List[Event]:
+    def map_events(self, events: List[KeyDownEvent]) -> List[Event]:
         mapped_events: List[Event] = []
         for event in events:
             match event:
@@ -74,11 +72,9 @@ class SceneManager:
         if not len(self.__scene_stack):
             return
         self.__scene_stack[len(self.__scene_stack) - 1].update(
-            self.map_events([
-                event
-                for event in events
-                if isinstance(event, KeyDownEvent)
-            ])
+            self.map_events(
+                [event for event in events if isinstance(event, KeyDownEvent)]
+            )
         )
 
     def draw(self) -> List[Item]:

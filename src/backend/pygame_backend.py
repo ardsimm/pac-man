@@ -33,7 +33,7 @@ class PyGameBackend(Backend):
             "w": KeyName.W,
             "a": KeyName.A,
             "s": KeyName.S,
-            "d": KeyName.D
+            "d": KeyName.D,
         }
         self.config = config
         pygame.init()

@@ -1,4 +1,3 @@
-from doctest import ELLIPSIS_MARKER
 import sys
 from typing import Any
 from functools import lru_cache
@@ -36,11 +35,7 @@ class TextureManager:
         tw, th = tile_size
         EMPTY = np.zeros((th, tw, 4), np.uint8)
         walls = np.stack(
-            [
-                self.get_asset(texs_key, th, tw, v)
-                for v in range(16)
-            ]
-            + [EMPTY]
+            [self.get_asset(texs_key, th, tw, v) for v in range(16)] + [EMPTY]
         )
         # (17, ASSET_SIZE, ASSET_SIZE, 4)
         tw, th = tile_size
@@ -62,7 +57,7 @@ class TextureManager:
         return tex
 
     def get_tile_map(
-        self,	
+        self,
         tile_map: npt.NDArray[np.uint8],
         tile_size: tuple[int, int],
         key: str,
@@ -87,16 +82,15 @@ class TextureManager:
     def get_asset(
         self, name: str, h: int, w: int, frame: int = 0
     ) -> npt.NDArray[np.uint8]:
-        frames =  self.theme_assets.get(name)
+        frames = self.theme_assets.get(name)
         if frames:
-           keys = sorted(frames)
-           frame = keys[frame % len(frames)]
+            keys = sorted(frames)
+            frame = keys[frame % len(frames)]
         return self._cached_get_asset(name, h, w, frame)
 
-	    
     def set_theme(self, name: str) -> None:
         if name == DEFAULT:
-            self.get_asset.cache_clear()
+            self._cached_get_asset.cache_clear()
             self._cached_bake.cache_clear()
             self.theme, self.theme_assets = DEFAULT, self._classic_assets
             return
@@ -105,7 +99,7 @@ class TextureManager:
         except ThemeNotFound as e:
             print(f"Error: {e}", file=sys.stderr)
             return
-        self.get_asset.cache_clear()
+        self._cached_get_asset.cache_clear()
         self._cached_bake.cache_clear()
         self.theme, self.theme_assets = name, self._classic_assets | assets
 

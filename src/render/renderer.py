@@ -7,7 +7,6 @@ from src.render.viewport import ScaleMode, Viewport
 from src.ui.base import Item, Text, Sprite, TileMap
 from src.ui import Anchor
 from src.backend import Backend
-from src.ui.box import Box
 
 from .models import Frame
 from .texture.texture_manager import TextureManager
@@ -23,15 +22,16 @@ class Renderer:
         self.frame: Frame = np.zeros((h, w, 4), np.uint8)
         self._texture_manager: TextureManager = TextureManager()
         self._font_renderer: FontRenderer = FontRenderer()
-        self.vp = Viewport.compute(self._backend.size, (GRID[0], GRID[1]), ScaleMode.stretch)
+        self.vp = Viewport.compute(
+            self._backend.size, (GRID[0], GRID[1]), ScaleMode.stretch
+        )
 
     def _rect(
-	    self, x: float, y: float, w: float, h: float
-	) -> tuple[int, int, int, int]:
+        self, x: float, y: float, w: float, h: float
+    ) -> tuple[int, int, int, int]:
         x0, y0 = self.vp.to_px(x, y)
         x1, y1 = self.vp.to_px(x + w, y + h)
         return x0, y0, max(x1 - x0, 1), max(y1 - y0, 1)
-					
 
     def _get_text_position(
         self, text: Text, rendered: npt.NDArray[np.uint8]
@@ -64,7 +64,7 @@ class Renderer:
 
         if fx0 > fx1 or fy0 > fy1:
             return
-        part = sprite[fy0 - y : fy1 - y, fx0 - x : fx1 - x]
+        part = sprite[fy0 - y: fy1 - y, fx0 - x: fx1 - x]
         np.copyto(buff[fy0:fy1, fx0:fx1], part, where=part[..., 3:] > 0)
 
     def render(self, items: List[Item]) -> None:

@@ -15,7 +15,7 @@ from src.event.user_event import UserEvent
 from src.maze.maze_provider import CORRIDOR, MazeProvider
 from src.scenes.scene import Scene
 from src.scenes.view.game_view import GameView
-from src.ui import Box, Button, Drawable, Maze
+from src.ui import Drawable, Maze
 from src.ui.base import Sprite
 
 
@@ -92,12 +92,13 @@ class GameScene(Scene):
                 self.view.super_pac_gums,
             ),
             Sprite(
-                f"{self.view.pacman.sprite}/{DIRECTION_ANIM[self.view.pacman.direction]}",
+                f"{self.view.pacman.sprite}/"
+                f"{DIRECTION_ANIM[self.view.pacman.direction]}",
                 self.view.pacman.x + self.view.pacman.x_step,
                 self.view.pacman.y + self.view.pacman.y_step,
                 1,
                 1,
-                self.view.pacman.animation_index // 25
+                self.view.pacman.animation_index // 25,
             ),
         ]
 
