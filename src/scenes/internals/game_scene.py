@@ -125,7 +125,7 @@ class GameScene(Scene):
             self.view.pacman.direction = self.pacman_desired_direction
             self.pacman_desired_direction = None
 
-        speed = self.config.pacman_speed
+        speed = self.config.game.pacman_speed
         nx, ny = self.view.pacman.behavior(self.view)
         self.view.pacman.x_step += nx * (speed / 100)
         self.view.pacman.y_step += ny * (speed / 100)
