@@ -88,7 +88,7 @@ class PyGameBackend(Backend):
     def present(self, buff: npt.NDArray[np.uint8]) -> None:
         h, w = buff.shape[:2]
         self._surface.blit(
-            pygame.image.frombuffer(buff, (w, h), "RGBA"), (0, 0)
+            pygame.image.frombuffer(buff, (w, h), "RGBX"), (0, 0)
         )
         pygame.display.flip()
 

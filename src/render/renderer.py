@@ -16,14 +16,14 @@ from .font import FontRenderer
 
 class Renderer:
     def __init__(self, backend: Backend) -> None:
-        GRID = (40, 40)
+        GRID = (50, 50)
 
         self._backend = backend
         w, h = self._backend.size
         self.frame: Frame = np.zeros((h, w, 4), np.uint8)
         self._texture_manager: TextureManager = TextureManager()
         self._font_renderer: FontRenderer = FontRenderer()
-        self.vp = Viewport.compute(self._backend.size, (GRID[0], GRID[1]), ScaleMode.fit)
+        self.vp = Viewport.compute(self._backend.size, (GRID[0], GRID[1]), ScaleMode.stretch)
 
     def _rect(
 	    self, x: float, y: float, w: float, h: float
@@ -68,7 +68,7 @@ class Renderer:
         np.copyto(buff[fy0:fy1, fx0:fx1], part, where=part[..., 3:] > 0)
 
     def render(self, items: List[Item]) -> None:
-        self.frame[:] = (0, 0, 0, 255)
+        self.frame.fill(0)
         for item in items:
             match item:
                 case Text():
