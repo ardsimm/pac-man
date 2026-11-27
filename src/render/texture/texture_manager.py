@@ -1,3 +1,4 @@
+from doctest import ELLIPSIS_MARKER
 import sys
 from typing import Any
 from functools import lru_cache
@@ -17,7 +18,7 @@ class TextureManager:
         self._classic_assets = self._load_assets(DEFAULT)
         self.theme, self.theme_assets = DEFAULT, self._classic_assets
 
-        self.get_asset = lru_cache(maxsize=None)(self._get_asset)
+        self._cached_get_asset = lru_cache(maxsize=None)(self._get_asset)
         self._cached_bake = lru_cache(maxsize=8)(self._bake_tile_map)
 
         if theme != DEFAULT:
@@ -83,6 +84,16 @@ class TextureManager:
         ).resize((w, h), Image.Resampling.NEAREST)
         return np.array(resized_assets)
 
+    def get_asset(
+        self, name: str, h: int, w: int, frame: int = 0
+    ) -> npt.NDArray[np.uint8]:
+        frames =  self.theme_assets.get(name)
+        if frames:
+           keys = sorted(frames)
+           frame = keys[frame % len(frames)]
+        return self._cached_get_asset(name, h, w, frame)
+
+	    
     def set_theme(self, name: str) -> None:
         if name == DEFAULT:
             self.get_asset.cache_clear()

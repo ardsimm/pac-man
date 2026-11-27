@@ -10,6 +10,12 @@ from src.event.user_event import UserEvent
 if TYPE_CHECKING:
     from src.scenes.view.game_view import GameView
 
+DIRECTION_ANIM: dict[Direction, str] = {
+    Direction.UP : "up",
+    Direction.RIGHT : "right",
+    Direction.DOWN : "down",
+    Direction.LEFT : "left"
+}
 
 @dataclass
 class Entity(ABC):
