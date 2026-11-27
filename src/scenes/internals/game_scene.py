@@ -6,6 +6,7 @@ import numpy as np
 from src.config.config import Config
 from src.entities.behaviors.pacman_behavior import pacman_behavior
 from src.entities.behaviors.utils import can_reach
+from src.entities.entity import DIRECTION_ANIM
 from src.entities.pacman import Pacman
 from src.enums import Direction
 from src.event.event import Event
@@ -90,18 +91,13 @@ class GameScene(Scene):
                 self.view.pac_gums,
                 self.view.super_pac_gums,
             ),
-            Button(
-                "ntm",
-                Box(x=10, y=10, width=8, height=3),
-                2,
-                (255, 255, 255, 255),
-            ),
             Sprite(
-                f"{self.view.pacman.sprite}/right",
-                self.view.pacman.x,
-                self.view.pacman.y,
+                f"{self.view.pacman.sprite}/{DIRECTION_ANIM[self.view.pacman.direction]}",
+                self.view.pacman.x + self.view.pacman.x_step,
+                self.view.pacman.y + self.view.pacman.y_step,
                 1,
                 1,
+                self.view.pacman.animation_index // 25
             ),
         ]
 
@@ -127,6 +123,9 @@ class GameScene(Scene):
 
         speed = self.config.pacman_speed
         nx, ny = self.view.pacman.behavior(self.view)
+        if nx or ny:
+            self.view.pacman.animation_index += speed
+            print("zizi")
         self.view.pacman.x_step += nx * (speed / 100)
         self.view.pacman.y_step += ny * (speed / 100)
         if abs(self.view.pacman.x_step) >= 1.0:
