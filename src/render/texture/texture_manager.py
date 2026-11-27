@@ -26,28 +26,30 @@ class TextureManager:
     def _bake_tile_map(
         self,
         texs_key: str,
-        tile_size: int,
+        tile_size: tuple[int, int],
         data: bytes,
         shape: tuple[int, ...],
     ) -> npt.NDArray[np.uint8]:
         tile_map = np.frombuffer(data, dtype=np.uint8).reshape(shape)
-        EMPTY = np.zeros((tile_size, tile_size, 4), np.uint8)
+
+        tw, th = tile_size
+        EMPTY = np.zeros((th, tw, 4), np.uint8)
         walls = np.stack(
             [
-                self.get_asset(texs_key, tile_size, tile_size, v)
+                self.get_asset(texs_key, th, tw, v)
                 for v in range(16)
             ]
             + [EMPTY]
         )
         # (17, ASSET_SIZE, ASSET_SIZE, 4)
-        T = walls.shape[1]
+        tw, th = tile_size
 
         h, w = tile_map.shape
         # Reshape multiplie 2 a 2 on change l ordre de la shape pour que les
         #  valeurs se suivent h * ASSET_SIZE et w * ASSET_SIZE
         # de base : (h, w, T, T, 4) -> (h, T, w, T, 4)
         maze_img = (
-            walls[tile_map].transpose(0, 2, 1, 3, 4).reshape(h * T, w * T, 4)
+            walls[tile_map].transpose(0, 2, 1, 3, 4).reshape(h * th, w * tw, 4)
         )
         return maze_img
 
@@ -59,7 +61,10 @@ class TextureManager:
         return tex
 
     def get_tile_map(
-        self, tile_map: npt.NDArray[np.uint8], tile_size: int, key: str
+        self,	
+        tile_map: npt.NDArray[np.uint8],
+        tile_size: tuple[int, int],
+        key: str,
     ) -> npt.NDArray[np.uint8]:
         tile_map = tile_map.astype(np.uint8, copy=False)
         return self._cached_bake(
@@ -75,7 +80,7 @@ class TextureManager:
             return self._default_asset(w, h)
         resized_assets = Image.fromarray(
             self.theme_assets[name][frame]
-        ).resize((h, w), Image.Resampling.NEAREST)
+        ).resize((w, h), Image.Resampling.NEAREST)
         return np.array(resized_assets)
 
     def set_theme(self, name: str) -> None:

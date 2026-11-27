@@ -19,7 +19,6 @@ class Engine:
     backend: Backend
 
     def __init__(self, config: Config) -> None:
-        self.GRID = (40, 40)
         self.clock = Clock(max_ticks=5, tick_rate=60, ts=time.time_ns())
         self.scene_manager = SceneManager(config=config)
         self.backend = Backend.init("pygame", config)
